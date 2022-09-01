@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class PersonMapper extends AbstractMapper<Person> {
     public static final String COLUMNS = " id, lastname, firstname, number_of_dependents ";
@@ -24,14 +25,6 @@ public class PersonMapper extends AbstractMapper<Person> {
                 SELECT %s
                   FROM people
                  WHERE id = ?""".formatted(COLUMNS);
-    }
-
-    public Person find(Long id) {
-        return abstractFind(id);
-    }
-
-    public Person find(long id) {
-        return find(Long.valueOf(id));
     }
 
     @Override

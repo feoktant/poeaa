@@ -6,10 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @param <E> Entity type
@@ -23,18 +20,25 @@ public abstract class AbstractMapper<E extends DomainObject> {
 
     abstract protected E doLoad(Long id, ResultSet rs) throws SQLException;
 
-    protected E abstractFind(Long id) {
-        var result = loadedMap.get(id);
-        if (result != null) return result;
-
-        try (var findStatement = DB.prepareStatement(findStatement())) {
-            findStatement.setLong(1, id);
-            ResultSet rs = findStatement.executeQuery();
-            rs.next();
-            return load(rs); // TODO this will fail on non-existing?
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    /** Fowler says, add abstractFind. We can omit this, and use normal find,
+     * thanks for generics, was:
+     * <code>protected DomainObject abstractFind(Long id)</code>
+     * */
+    public Optional<E> find(Long id) {
+        var loaded = Optional.of(loadedMap.get(id));
+        return loaded.or(() -> {
+            try (var findStatement = DB.prepareStatement(findStatement())) {
+                findStatement.setLong(1, id);
+                var rs = findStatement.executeQuery();
+                var maybeEntity = rs.next() ?
+                        Optional.of(load(rs)) :
+                        Optional.<E>empty();
+                if (rs.next()) throw new SQLException("Get by id returned >1 entity");
+                else return maybeEntity;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     protected E load(ResultSet rs) throws SQLException {
