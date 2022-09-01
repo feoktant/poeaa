@@ -1,5 +1,7 @@
 package io.feoktant.domain;
 
+import io.feoktant.ch18_base_patterns.Layer_Supertype.DomainObject;
+
 public class Person extends DomainObject {
     private String lastName;
     private String firstName;
@@ -9,7 +11,7 @@ public class Person extends DomainObject {
                   String lastName,
                   String firstName,
                   int numberOfDependents) {
-        this.id = id;
+        this.setID(id);
         this.lastName = lastName;
         this.firstName = firstName;
         this.numberOfDependents = numberOfDependents;
