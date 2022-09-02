@@ -1,6 +1,6 @@
 package io.feoktant.metadatamapping;
 
-import io.feoktant.domain.DomainObject;
+import io.feoktant.ch18_base_patterns.Layer_Supertype.DomainObject;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
