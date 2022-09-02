@@ -1,4 +1,4 @@
-package io.feoktant.metadatamapping;
+package io.feoktant.ch13_Object_Relational_Metadata_Mapping_Patterns._1_metadata_mapping;
 
 import java.lang.reflect.Field;
 

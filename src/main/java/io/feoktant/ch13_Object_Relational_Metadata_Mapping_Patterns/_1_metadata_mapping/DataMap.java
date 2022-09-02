@@ -1,8 +1,7 @@
-package io.feoktant.metadatamapping;
+package io.feoktant.ch13_Object_Relational_Metadata_Mapping_Patterns._1_metadata_mapping;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
