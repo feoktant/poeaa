@@ -18,12 +18,18 @@ public abstract class AbstractMapper<E extends DomainObject> {
 
     abstract protected String findStatement();
 
+    abstract protected String insertStatement();
+
     abstract protected E doLoad(Long id, ResultSet rs) throws SQLException;
 
-    /** Fowler says, add abstractFind. We can omit this, and use normal find,
+    abstract protected void doInsert(E subject, PreparedStatement insertStatement)
+            throws SQLException;
+
+    /**
+     * Fowler says, add abstractFind. We can omit this, and use normal find,
      * thanks for generics, was:
      * <code>protected DomainObject abstractFind(Long id)</code>
-     * */
+     */
     public Optional<E> find(Long id) {
         var loaded = Optional.of(loadedMap.get(id));
         return loaded.or(() -> {
@@ -79,11 +85,6 @@ public abstract class AbstractMapper<E extends DomainObject> {
             throw new RuntimeException(e);
         }
     }
-
-    abstract protected String insertStatement();
-
-    abstract protected void doInsert(E subject, PreparedStatement insertStatement)
-            throws SQLException;
 
     Long findNextDatabaseId() {
         throw new RuntimeException("Not yet implemented"); // TODO

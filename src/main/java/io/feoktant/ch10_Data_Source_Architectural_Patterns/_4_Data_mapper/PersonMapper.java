@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 public class PersonMapper extends AbstractMapper<Person> {
     public static final String COLUMNS = " id, lastname, firstname, number_of_dependents ";
@@ -14,7 +13,7 @@ public class PersonMapper extends AbstractMapper<Person> {
             UPDATE people
                SET lastname = ?, firstname = ?, number_of_dependents = ?
              WHERE id = ?""";
-    private static String findLastNameStatement = """
+    private static final String findLastNameStatement = """
             SELECT %s
               FROM people
              WHERE UPPER(lastname) like UPPER(?)
