@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-        var url = "jdbc:h2:mem:txscript;INIT=runscript from 'classpath:txscript.sql'";
+        var url = "jdbc:h2:mem:txscript;INIT=runscript from 'classpath:init.sql'";
         var connection = DriverManager.getConnection(url);
         var gateway = new Gateway(connection);
         var recognitionService = new RecognitionService(gateway);

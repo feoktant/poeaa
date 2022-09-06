@@ -14,7 +14,7 @@ public class DB {
 
     static {
         var h2DataSource = new JdbcDataSource();
-        var url = "jdbc:h2:mem:txscript;INIT=runscript from 'classpath:txscript.sql'";
+        var url = "jdbc:h2:mem:txscript;INIT=runscript from 'classpath:init.sql'";
         h2DataSource.setUrl(url);
 
         dataSource = h2DataSource;
