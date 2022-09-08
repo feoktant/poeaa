@@ -3,6 +3,8 @@ package io.feoktant.ch13_Object_Relational_Metadata_Mapping_Patterns._1_metadata
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -52,5 +54,9 @@ public class DataMap<T> {
 
     public void addColumn(String columnName, String type, String fieldName) {
         columnMaps.add(new ColumnMap<>(columnName, fieldName, domainClass));
+    }
+
+    public void addColumn(String columnName, BiConsumer<T, Object> setter) {
+        columnMaps.add(new ColumnMap<>(columnName, setter));
     }
 }

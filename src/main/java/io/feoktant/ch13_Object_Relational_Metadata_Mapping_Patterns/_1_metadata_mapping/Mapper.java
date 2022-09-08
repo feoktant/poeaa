@@ -53,7 +53,7 @@ public class Mapper<T extends DomainObject> {
         }
     }
 
-    public void update(DomainObject obj) {
+    public void update(T obj) {
         String sql = """
                 UPDATE %s %s
                  WHERE ID = ?"""
@@ -70,7 +70,7 @@ public class Mapper<T extends DomainObject> {
         }
     }
 
-    public Long insert(DomainObject obj) {
+    public Long insert(T obj) {
         String sql = """
                 INSERT INTO %s
                 VALUES (?%s)"""

@@ -16,6 +16,13 @@ public class PersonMapper extends Mapper<Person> {
         dataMap.addColumn("number_of_dependents", "int", "numberOfDependents");
     }
 
+    private void loadDataMap2() {
+        dataMap = new DataMap<>("people", Person.class);
+        dataMap.addColumn("lastname", (Person p, Object lastname) -> p.setLastName((String)lastname));
+        dataMap.addColumn("firstname", (Person p, Object firstname) -> p.setFirstName((String)firstname));
+        dataMap.addColumn("number_of_dependents", (Person p, Object nod) -> p.setNumberOfDependents((Integer)nod));
+    }
+
     public Set<Person> findLastNamesLike(String pattern) {
         String sql = """
                     SELECT %s
